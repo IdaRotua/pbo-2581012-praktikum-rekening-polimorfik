@@ -5,3 +5,23 @@ public class Tabungan extends Rekening implements BerBunga {
         super(nomor, pemilik, saldo);
         this.bungaPersen = bungaPersen;
     }
+
+    @Override
+    public int tambahBunga() {
+        int bunga = (int) (saldo * bungaPersen / 100);
+        setor(bunga);
+        return bunga;
+    }
+
+    // gratis kalau saldo minimal 1.000.000, selain itu Rp5.000
+    @Override
+    public int biayaAdminBulanan() {
+        return saldo >= 1000000 ? 0 : 5000;
+    }
+
+    @Override
+    public void cetakInfo() {
+        super.cetakInfo();
+        System.out.println("      Tabungan, bunga " + bungaPersen + "% per bulan");
+    }
+}

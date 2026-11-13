@@ -5,3 +5,25 @@ public class Giro extends Rekening {
         super(nomor, pemilik, saldo);
         this.batasOverdraft = batasOverdraft;
     }
+
+    @Override
+    public boolean tarik(int jumlah) {
+        if (jumlah <= 0 || saldo - jumlah < -batasOverdraft) {
+            return false;
+        }
+        saldo -= jumlah;
+        return true;
+    }
+
+    // giro selalu Rp15.000
+    @Override
+    public int biayaAdminBulanan() {
+        return 15000;
+    }
+
+    @Override
+    public void cetakInfo() {
+        super.cetakInfo();
+        System.out.println("      Giro, batas overdraft " + formatRupiah(batasOverdraft));
+    }
+}
